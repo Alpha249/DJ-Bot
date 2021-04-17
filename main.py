@@ -1,8 +1,5 @@
 from discord.ext import commands
-from dotenv import load_dotenv
 import os
-
-load_dotenv('.env')
 
 bot = commands.Bot(command_prefix='DJ!')
 
