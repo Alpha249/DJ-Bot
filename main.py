@@ -1,9 +1,8 @@
 from discord.ext import commands
-import discord
-from scraper import News
-
+from dotenv import load_dotenv
 import os
 
+load_dotenv('.env')
 
 bot = commands.Bot(command_prefix='DJ!')
 
@@ -28,18 +27,18 @@ async def echo(ctx, arg):
     await ctx.send(arg)
 
 
-@bot.command()
-async def news(ctx, thing, count):
-    title, link = News(thing=thing, count=count)
-    print(title)
-    print(link)
-    for i in range(int(count)):
-        print(title)
-        print(list)
-        await ctx.send(f"{title[i]} - {link[i]}")
-    title.clear()
-    link.clear()
-
+# @bot.command()
+# async def news(ctx, thing, count):
+#     title, link = News(thing=thing, count=count)
+#     print(title)
+#     print(link)
+#     for i in range(int(count)):
+#         print(title)
+#         print(list)
+#         await ctx.send(f"{title[i]} - {link[i]}")
+#     title.clear()
+#     link.clear()
+#
 
 
 
