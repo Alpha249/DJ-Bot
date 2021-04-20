@@ -15,7 +15,9 @@ def CreateDatabase(database):
 
 
 def DuplicateCheckUSER(user):
-    cursor = connection.cursor()
+    connection2 = sqlite3.connect('database/location.db')
+
+    cursor = connection2.cursor()
 
     cursor.execute("SELECT user_id, location from Users;")
     list_users = cursor.fetchall()
@@ -23,13 +25,16 @@ def DuplicateCheckUSER(user):
     list_users = [x[0] for x in list_users]
 
     if user not in list_users:
+        connection2.close()
         return True
     else:
+        connection2.close()
         return False
 
 
 def ExportParameter(user, parameter):
-    cursor = connection.cursor()
+    connection2 = sqlite3.connect('database/location.db')
+    cursor = connection2.cursor()
 
     cursor.execute("INSERT INTO Users (user_id, location) VALUES (:user_id, :location);",
                    {
@@ -37,11 +42,13 @@ def ExportParameter(user, parameter):
                        'location': parameter.lower()
                    })
 
-    connection.commit()
+    connection2.commit()
+    connection2.close()
 
 
 def UpdateParameter(user, parameter):
-    cursor = connection.cursor()
+    connection2 = sqlite3.connect('database/location.db')
+    cursor = connection2.cursor()
 
     cursor.execute("UPDATE Users SET location = (:location) WHERE user_id = (:user_id);",
                    {
@@ -49,7 +56,8 @@ def UpdateParameter(user, parameter):
                        'user_id': user
                    })
 
-    connection.commit()
+    connection2.commit()
+    connection2.close()
 
 
 def GetUserLocation(database, user):

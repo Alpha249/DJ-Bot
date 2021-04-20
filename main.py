@@ -8,6 +8,10 @@ from db import CreateDatabase, DuplicateCheckUSER, ExportParameter, UpdateParame
 
 bot = commands.Bot(command_prefix='dj ')
 
+if os.path.isdir('database'):
+    pass
+else:
+    os.mkdir('database')
 
 @bot.event
 async def on_ready():
