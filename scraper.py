@@ -1,5 +1,5 @@
 # To-Do:
-# 1. Make try-catch blocks for directory creation - ✓*
+# 1. Make try-catch blocks for directory creation - ✓
 import os
 import random
 from datetime import datetime, date
@@ -28,11 +28,28 @@ headers = {
 }
 
 
-def News(thing, count):
+def LocaleGet(locale):
+    codes = {
+        'usa': 'hl=en-US&gl=US&ceid=US:en',
+        'india': 'hl=en-IN&gl=IN&ceid=IN:en',
+        'england': 'hl=en-GB&gl=GB&ceid=GB:en',
+        'malaysia': 'hl=en-MY&gl=MY&ceid=MY:en',
+        'canada': 'hl=en-CA&gl=CA&ceid=CA:en',
+        'germany': 'gl=DE&hl=de&ceid=DE:de',
+        'russia': 'gl=RU&hl=ru&ceid=RU:ru',
+        'vietnam': 'gl=VN&hl=vi&ceid=VN:vi',
+    }
+
+    if locale.lower() in codes:
+        location = codes.get(locale.lower())
+        return location
+
+
+def News(thing, count, location):
     global df_titles
     for i, j in zip(thing, count):
         # Initialize BeautifulSoup and requests
-        URL = f"https://news.google.com/rss/search?q={i}&hl=en-US&gl=US&ceid=US:en"
+        URL = f"https://news.google.com/rss/search?q={i}&{location}"
         page = requests.get(URL, headers=headers)
         soup = BeautifulSoup(page.content, 'xml')
 
